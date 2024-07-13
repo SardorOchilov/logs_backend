@@ -9,7 +9,13 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+    origin: ['https://icomfort-backend-test.bis-pro.com', 'https://icomfort-backend-test.bis-pro.com'], // List of allowed origins
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], // Allowed HTTP methods
+    allowedHeaders: ['Content-Type'], // Allowed headers
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api', apiRoutes);
