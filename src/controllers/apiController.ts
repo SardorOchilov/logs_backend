@@ -24,7 +24,7 @@ export const getApis = async (req: Request, res: Response): Promise<void> => {
 
     try {
         const result = await pool.query(
-            'SELECT * FROM apis WHERE company_name = $1',
+            'SELECT * FROM apis WHERE company_name = $1 ORDER BY created_at DESC',
             [company_name]
         );
         if (result.rows.length === 0) {
@@ -37,6 +37,7 @@ export const getApis = async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 export const updateApi = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const { company_name, method, path, description, username, body }: Api = req.body;
